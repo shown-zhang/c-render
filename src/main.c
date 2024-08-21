@@ -1,4 +1,4 @@
-#include "../include/fq_matrix.h"
+#include <fq_matrix.h>
 #include <stdio.h>
 
 int main() {
