@@ -3,15 +3,20 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.29)
 AUX_SOURCE_DIRECTORY(. SRC_LIST)
 
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/include)
-INCLUDE_DIRECTORIES(/usr/local/include)
 
-FIND_LIBRARY(FQ_MATRIX libfq_matrix.a /usr/local/lib)
-FIND_LIBRARY(GLFW libglfw3.a /usr/local/lib)
+# 添加目标链接
+set(GLFW_LINK ${PROJECT_SOURCE_DIR}/lib/libglfw.3.dylib)
+link_libraries(${GLFW_LINK})
+
+set(FQ_MATRIX ${PROJECT_SOURCE_DIR}/lib/libfq_matrix.a)
+link_libraries(${FQ_MATRIX})
 
 
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 
 ADD_EXECUTABLE(C_Render ${SRC_LIST})
 
+TARGET_LINK_LIBRARIES(C_Render "-framework OpenGL")
+TARGET_LINK_LIBRARIES(C_Render "-framework Cocoa")
 TARGET_LINK_LIBRARIES(C_Render ${FQ_MATRIX})
 TARGET_LINK_LIBRARIES(C_Render ${GLFW})
